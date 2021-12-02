@@ -1,5 +1,4 @@
 import {Button, StyleSheet, TextInput, View} from "react-native";
-import GameRoom from "./GameRoom";
 import React from 'react';
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../App";

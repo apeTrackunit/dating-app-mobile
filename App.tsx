@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import {NavigationContainer} from "@react-navigation/native";
 import LoginScreen from "./app/screens/LoginScreen";
-import GameRoom from "./app/screens/GameRoom";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import axios from "axios";
 import {AuthProvider} from "./app/shared/contexts/AuthContext";
@@ -34,7 +33,6 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
           <Navigator initialRouteName={"LoginScreen"}>
-            <Screen name="GameRoom" component={GameRoom} />
             <Screen name="LoginScreen" component={LoginScreen} />
           </Navigator>
         </NavigationContainer>
