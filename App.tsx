@@ -1,15 +1,14 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import {NavigationContainer} from "@react-navigation/native";
-import LoginScreen from "./app/screens/LoginScreen";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import axios from "axios";
-import {AuthProvider} from "./app/shared/contexts/AuthContext";
-import {QueryClient, QueryClientProvider} from "react-query";
+import {NavigationContainer} from '@react-navigation/native';
+import LoginScreen from './app/screens/LoginScreen';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import axios from 'axios';
+import {AuthProvider} from './app/shared/contexts/AuthContext';
+import {QueryClient, QueryClientProvider} from 'react-query';
 
 if (__DEV__) {
-  import('react-query-native-devtools').then(({ addPlugin }) => {
-    addPlugin({ queryClient });
+  import('react-query-native-devtools').then(({addPlugin}) => {
+    addPlugin({queryClient});
   });
 }
 
@@ -20,8 +19,8 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-axios.defaults.baseURL = "http://10.0.2.2:5000/api";
-axios.defaults.headers.post["Content-Type"] = "application/json";
+axios.defaults.baseURL = 'http://10.0.2.2:5000/api';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const queryClient = new QueryClient();
 
@@ -32,7 +31,7 @@ const App = () => {
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
-          <Navigator initialRouteName={"LoginScreen"}>
+          <Navigator initialRouteName={'LoginScreen'}>
             <Screen name="LoginScreen" component={LoginScreen} />
           </Navigator>
         </NavigationContainer>
@@ -40,15 +39,5 @@ const App = () => {
     </AuthProvider>
   );
 };
-
-//For future
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    background: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-});
 
 export default App;
