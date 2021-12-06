@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import axios from 'axios';
 import {AuthProvider} from './app/shared/contexts/AuthContext';
 import {QueryClient, QueryClientProvider} from 'react-query';
+import ViewUsersScreen from './app/screens/ViewUsersScreen';
 
 if (__DEV__) {
   import('react-query-native-devtools').then(({addPlugin}) => {
@@ -14,7 +15,7 @@ if (__DEV__) {
 
 export type RootStackParamList = {
   LoginScreen: undefined;
-  GameRoom: undefined;
+  ViewUsersScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -33,6 +34,7 @@ const App = () => {
         <NavigationContainer>
           <Navigator initialRouteName={'LoginScreen'}>
             <Screen name="LoginScreen" component={LoginScreen} />
+            <Screen name="ViewUsersScreen" component={ViewUsersScreen} />
           </Navigator>
         </NavigationContainer>
       </QueryClientProvider>
