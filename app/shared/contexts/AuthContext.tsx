@@ -1,5 +1,4 @@
-import React, {useCallback} from 'react';
-import axios from 'axios';
+import React from 'react';
 import EncryptedStorage from 'react-native-encrypted-storage';
 
 export interface IAuthContext {
@@ -13,13 +12,13 @@ export const AuthContext = React.createContext<IAuthContext | null>(null);
 export const AuthProvider: React.FC = ({children}) => {
   const [token, setToken] = React.useState<string | null>(null);
 
-  const storeUserSession = useCallback(async (token: string) => {
+  const storeUserSession = async (newToken: string) => {
     try {
-      await EncryptedStorage.setItem('jwtToken', token);
+      await EncryptedStorage.setItem('jwtToken', newToken);
     } catch (error) {
       return error;
     }
-  }, []);
+  };
 
   const removeUserSession = async () => {
     try {
@@ -29,19 +28,17 @@ export const AuthProvider: React.FC = ({children}) => {
     }
   };
 
-  const signIn = useCallback(
-    async (token: string) => {
-      setToken(token);
-      await storeUserSession(token);
-      axios.defaults.headers.common.Authorization = 'Bearer ' + token;
-    },
-    [setToken, storeUserSession],
-  );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const signIn = async (newToken: string) => {
+    setToken(newToken);
+    await storeUserSession(newToken);
+  };
 
-  const singOut = useCallback(async () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const singOut = async () => {
     setToken(null);
     await removeUserSession();
-  }, [setToken]);
+  };
 
   const contextValues: IAuthContext = React.useMemo(
     () => ({

@@ -20,7 +20,7 @@ const LoginScreen = ({
       .get('/Auth/SignIn', {params: {email, password}})
       .then(response => {
         signIn(response?.data as string);
-        navigation.dispatch(StackActions.replace('GameRoom'));
+        navigation.dispatch(StackActions.replace('ViewUsersScreen'));
       })
       .catch(error => {
         console.log('Error: ', error.response);
