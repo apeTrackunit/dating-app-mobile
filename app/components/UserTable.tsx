@@ -3,7 +3,7 @@ import React from 'react';
 import {User} from '../shared/interfaces/User';
 import axios from 'axios';
 import {useAuthContext} from '../shared/contexts/AuthContext';
-import {useQuery} from 'react-query';
+import {useMutation} from 'react-query';
 
 interface UserTableProps {
   data: User[];
@@ -15,40 +15,23 @@ const DB_MIN_DATE = '0001-01-01T00:00:00';
 
 export const UserTable = ({data, isLoading, refetch}: UserTableProps) => {
   const {token} = useAuthContext();
-  const [deleteUserId, setDeleteUserId] = React.useState<string | null>();
 
-  const onDeleteClicked = (id: string) => {
-    setDeleteUserId(id);
-    duRefetch();
+  const onDeleteClicked = (user: User) => {
+    mutateAsync(user);
   };
 
-  const emulateDelete = async () => {
-    console.log(token);
+  const {isLoading: duIsLoading, mutateAsync} = useMutation((user: User) => {
     return axios
-      .put('/User', {
+      .put('/User', user, {
         headers: {Authorization: `Bearer ${token}`},
-        params: {id: deleteUserId},
       })
-      .then(response => {
+      .then(() => {
         refetch();
-        setDeleteUserId(null);
-        console.log(response);
       })
       .catch(error => {
-        console.log('Error: ', error.response);
         return {error: error.response.data};
       });
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const {refetch: duRefetch, isLoading: duIsLoading} = useQuery(
-    ['DeleteUser', {id: deleteUserId}],
-    emulateDelete,
-    {
-      refetchOnWindowFocus: false,
-      enabled: !!deleteUserId,
-    },
-  );
+  });
 
   const renderItem = (user: User) => {
     return (
@@ -60,7 +43,7 @@ export const UserTable = ({data, isLoading, refetch}: UserTableProps) => {
             user.deletedDate.toString() === DB_MIN_DATE ? 'Delete' : 'Deleted'
           }
           disabled={user.deletedDate.toString() !== DB_MIN_DATE}
-          onPress={() => onDeleteClicked(user.id)}
+          onPress={() => onDeleteClicked(user)}
         />
       </View>
     );
