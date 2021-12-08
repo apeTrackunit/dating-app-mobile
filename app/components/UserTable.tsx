@@ -1,4 +1,11 @@
-import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Button,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React from 'react';
 import {User} from '../shared/interfaces/User';
 import axios from 'axios';
@@ -51,7 +58,7 @@ export const UserTable = ({data, isLoading, refetch}: UserTableProps) => {
 
   return (
     <View style={styles.container}>
-      {!isLoading || !duIsLoading ? (
+      {!isLoading && !duIsLoading ? (
         <FlatList
           data={data}
           renderItem={user => {
@@ -59,7 +66,7 @@ export const UserTable = ({data, isLoading, refetch}: UserTableProps) => {
           }}
         />
       ) : (
-        <Text>Loading...</Text>
+        <ActivityIndicator size={'large'} />
       )}
     </View>
   );

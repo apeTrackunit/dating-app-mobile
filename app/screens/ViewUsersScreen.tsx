@@ -35,7 +35,7 @@ const ViewUsersScreen = () => {
 
   return (
     <View style={styles.container}>
-      {Array.isArray(data) ? (
+      {Array.isArray(data) && !isLoading ? (
         <UserTable data={data} isLoading={isLoading} refetch={refetch} />
       ) : (
         <Text>Something went wrong. Try it again later!</Text>
@@ -47,6 +47,8 @@ const ViewUsersScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
     backgroundColor: '#fff',
   },
 });

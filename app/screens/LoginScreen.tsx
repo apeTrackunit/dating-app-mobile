@@ -1,4 +1,11 @@
-import {Button, StyleSheet, TextInput, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
@@ -59,10 +66,18 @@ const LoginScreen = ({
         keyboardType="default"
         secureTextEntry={true}
       />
-      <Button
-        title={!isLoading ? 'Login' : 'Processing...'}
-        onPress={handleOnLoginClicked}
-      />
+      {
+        //@ts-ignore
+        !!data?.error && <Text style={styles.errorMsg}>{data?.error}</Text>
+      }
+      {isLoading ? (
+        <ActivityIndicator size={'large'} />
+      ) : (
+        <Button
+          title={!isLoading ? 'Login' : 'Processing...'}
+          onPress={handleOnLoginClicked}
+        />
+      )}
     </View>
   );
 };
@@ -83,6 +98,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     color: '#000',
+  },
+  errorMsg: {
+    color: 'red',
+    paddingBottom: 5,
   },
 });
 
