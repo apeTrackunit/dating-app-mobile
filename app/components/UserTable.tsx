@@ -29,7 +29,7 @@ export const UserTable = ({data, isLoading, refetch}: UserTableProps) => {
 
   const {isLoading: duIsLoading, mutateAsync} = useMutation((user: User) => {
     return axios
-      .put('/User', user, {
+      .put('/User/Delete', user, {
         headers: {Authorization: `Bearer ${token}`},
       })
       .then(() => {
