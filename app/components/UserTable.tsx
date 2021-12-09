@@ -46,9 +46,7 @@ export const UserTable = ({data, isLoading, refetch}: UserTableProps) => {
         <Text style={styles.text}>{user.firstName}</Text>
         <Text style={styles.text}>{user.email}</Text>
         <Button
-          title={
-            user.deletedDate.toString() === DB_MIN_DATE ? 'Delete' : 'Deleted'
-          }
+          title={user.deletedDate.toString() === DB_MIN_DATE ? 'Ban' : 'Banned'}
           disabled={user.deletedDate.toString() !== DB_MIN_DATE}
           onPress={() => onDeleteClicked(user)}
         />

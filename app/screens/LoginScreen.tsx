@@ -51,6 +51,10 @@ const LoginScreen = ({
 
   return (
     <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>BGN Dating</Text>
+        <Text style={styles.subTitleText}>Administration</Text>
+      </View>
       <TextInput
         style={styles.input}
         onChangeText={value => setEmail(value)}
@@ -102,6 +106,19 @@ const styles = StyleSheet.create({
   errorMsg: {
     color: 'red',
     paddingBottom: 5,
+  },
+  titleContainer: {
+    paddingBottom: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  titleText: {
+    fontWeight: '700',
+    fontSize: 30,
+    color: '#2a95ff',
+  },
+  subTitleText: {
+    fontStyle: 'italic',
   },
 });
 
