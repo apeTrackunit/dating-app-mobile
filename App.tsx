@@ -8,12 +8,6 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 import ViewUsersScreen from './app/screens/ViewUsersScreen';
 import {AppHeader} from './app/components/AppHeader';
 
-if (__DEV__) {
-  import('react-query-native-devtools').then(({addPlugin}) => {
-    addPlugin({queryClient});
-  });
-}
-
 export type RootStackParamList = {
   LoginScreen: undefined;
   ViewUsersScreen: undefined;
@@ -21,10 +15,16 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-axios.defaults.baseURL = 'http://10.0.2.2:5000/api';
+//axios.defaults.baseURL = 'http://10.0.2.2:5000/api';
+axios.defaults.baseURL = 'https://bgndatingapp-backend.azurewebsites.net/api';
+
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const queryClient = new QueryClient();
+
+import('react-query-native-devtools').then(({addPlugin}) => {
+  addPlugin({queryClient});
+});
 
 const App = () => {
   const {Screen, Navigator} = Stack;

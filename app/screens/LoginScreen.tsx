@@ -24,13 +24,13 @@ const LoginScreen = ({
 
   const emulateFetch = async () => {
     return axios
-      .get('/Auth/SignIn', {params: {email, password}})
+      .get('/Auth/SignIn/Administration', {params: {email, password}})
       .then(response => {
         signIn(response?.data as string);
         navigation.dispatch(StackActions.replace('ViewUsersScreen'));
       })
       .catch(error => {
-        console.log('Error: ', error.response);
+        console.log('Error: ', error);
         return {error: error.response.data};
       });
   };
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     color: '#000',
+    backgroundColor: '#ececec',
   },
   errorMsg: {
     color: 'red',
@@ -119,6 +120,7 @@ const styles = StyleSheet.create({
   },
   subTitleText: {
     fontStyle: 'italic',
+    color: '#989898',
   },
 });
 
