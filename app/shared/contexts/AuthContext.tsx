@@ -12,6 +12,18 @@ export const AuthContext = React.createContext<IAuthContext | null>(null);
 export const AuthProvider: React.FC = ({children}) => {
   const [token, setToken] = React.useState<string | null>(null);
 
+  React.useEffect(() => {
+    initUserSession();
+  }, []);
+
+  const initUserSession = async () => {
+    try {
+      setToken(await EncryptedStorage.getItem('jwtToken'));
+    } catch (error) {
+      return error;
+    }
+  };
+
   const storeUserSession = async (newToken: string) => {
     try {
       await EncryptedStorage.setItem('jwtToken', newToken);
